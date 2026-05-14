@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang | default "en" }}">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ .Title }}</title>
+  {{ partial "brand/css-vars" . }}
+  {{- $css := resources.Get "scss/print-doc.scss" | css.Sass -}}
+  <style>{{ $css.Content | safeCSS }}</style>
+  {{ partial "scripts/mathjax.html" . }}
+</head>
+<body class="doc-print doc-manual-print">
+  <table class="doc-page">
+    <tfoot><tr><td>{{ partial "brand/doc-footer" . }}</td></tr></tfoot>
+    <tbody><tr><td>
+      {{ partial "brand/letterhead" . }}
+      <div class="doc-print-title-block">
+        <h1 class="doc-title">{{ .Title }}</h1>
+        {{- with .Params.description }}<p class="doc-subtitle">{{ . }}</p>{{- end }}
+        <div class="doc-meta">
+          {{- with .Params.part_number }}<span>P/N: {{ . }}</span>{{- end }}
+          {{- with .Params.hardware_revision }}<span>HW {{ . }}</span>{{- end }}
+          {{- with .Params.firmware_version }}<span>FW {{ . }}</span>{{- end }}
+          <span>{{ .Date.Format "January 2006" }}</span>
+        </div>
+      </div>
+      <div class="doc-body">
+        {{- .Content -}}
+      </div>
+    </td></tr></tbody>
+  </table>
+</body>
+</html>

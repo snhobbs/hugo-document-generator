@@ -1,0 +1,22 @@
+// Product announcement — highlighted banner and single-column layout.
+
+.doc-announcement-banner {
+  display: inline-block;
+  background: var(--brand-primary, #0057b8);
+  color: #fff;
+  font-family: sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+  margin-bottom: 0.75rem;
+}
+
+.doc-product-announcement .doc-meta,
+.doc-announcement-print .doc-meta {
+  border-top: 1px solid var(--brand-secondary, #00a3e0);
+  padding-top: 0.5rem;
+  margin-top: 0.5rem;
+}

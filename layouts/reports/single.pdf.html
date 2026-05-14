@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang | default "en" }}">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ .Title }}</title>
+  {{ partial "brand/css-vars" . }}
+  {{- $css := resources.Get "scss/print-doc.scss" | css.Sass -}}
+  <style>{{ $css.Content | safeCSS }}</style>
+  {{ partial "scripts/mathjax.html" . }}
+</head>
+<body class="doc-print doc-report-print">
+  <table class="doc-page">
+    <tfoot><tr><td>{{ partial "brand/doc-footer" . }}</td></tr></tfoot>
+    <tbody><tr><td>
+      {{ partial "brand/cover" . }}
+      <div class="doc-body">
+        {{- .Content -}}
+      </div>
+    </td></tr></tbody>
+  </table>
+</body>
+</html>

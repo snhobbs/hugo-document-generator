@@ -1,0 +1,18 @@
+{{ define "main" }}
+<article class="markdown book-article doc-report">
+  {{ partial "brand/letterhead" . }}
+  <div class="doc-report-header">
+    <h1 class="doc-title">{{ .Title }}</h1>
+    {{- with .Params.subtitle }}<p class="doc-subtitle">{{ . }}</p>{{- end }}
+    <div class="doc-meta">
+      {{- with .Params.author }}<span>{{ . }}</span>{{- end }}
+      <span>{{ .Date.Format "January 2, 2006" }}</span>
+      {{- with .Params.revision }}<span>Rev {{ . }}</span>{{- end }}
+    </div>
+  </div>
+  {{ partial "print-link" . }}
+  <div class="doc-body">
+    {{- .Content -}}
+  </div>
+</article>
+{{ end }}

@@ -1,0 +1,16 @@
+// Report — multi-page with cover page and running headers.
+
+.doc-report,
+.doc-report-print {
+  .doc-body {
+    h2 {
+      break-before: auto;
+      page-break-before: auto;
+    }
+
+    // Keep figure+caption together.
+    figure {
+      break-inside: avoid;
+    }
+  }
+}

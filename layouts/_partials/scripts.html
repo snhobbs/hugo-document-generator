@@ -1,0 +1,28 @@
+{{ if .Site.Params.markmap.enable -}}
+<style>
+.markmap > svg {
+  width: 100%;
+  height: 300px;
+}
+</style>
+<script>
+window.markmap = {
+  autoLoader: {
+      manual: true,
+      onReady() {
+        const { autoLoader, builtInPlugins } = window.markmap;
+        autoLoader.transformPlugins = builtInPlugins.filter(plugin => plugin.name !== 'prism');
+      },
+  },
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/markmap-autoloader"></script>
+{{ end -}}
+
+{{ if .Site.Params.plantuml.enable -}}
+  <script src='{{ "js/deflate.js" | relURL }}'></script>
+{{ end -}}
+
+{{ if .Page.Store.Get "hasmermaid" -}}
+{{- partial "scripts/mermaid.html" . -}}
+{{ end -}}

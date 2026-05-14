@@ -1,0 +1,120 @@
+// Standalone print document CSS — inlined into .pdf.html templates.
+// No dependency on hugo-book; works with weasyprint and browser print.
+
+@import "components/letterhead";
+@import "components/doc-footer";
+@import "components/cover";
+@import "documents/datasheet";
+@import "documents/announcement";
+@import "documents/report";
+@import "imgprint";
+
+*, *::before, *::after { box-sizing: border-box; }
+
+@page {
+  size: letter;
+  margin: 1in;
+  margin-bottom: 2in;
+}
+
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 10.5pt;
+  line-height: 1.65;
+  color: var(--brand-text);
+  background: var(--brand-bg);
+  margin: 0;
+  padding: 0;
+}
+
+// Override component sizes for print pt units.
+.doc-letterhead {
+  &__company  { font-size: 9pt; }
+  &__doc-type { font-size: 6.5pt; }
+}
+
+.doc-print-title-block { margin-bottom: 0.9rem; }
+
+.doc-title {
+  font-family: sans-serif;
+  font-size: 20pt;
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 0.25rem;
+}
+
+.doc-subtitle {
+  font-size: 11pt;
+  font-style: italic;
+  color: var(--brand-muted);
+  margin: 0 0 0.4rem;
+}
+
+.doc-meta {
+  font-family: sans-serif;
+  font-size: 7.5pt;
+  color: var(--brand-muted);
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 0.7rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: sans-serif;
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+h1 { font-size: 15pt; margin: 1rem 0 0.4rem; }
+h2 {
+  font-size: 12pt;
+  margin: 0.9rem 0 0.3rem;
+  padding-bottom: 2pt;
+  border-bottom: 0.5pt solid var(--brand-rule);
+}
+h3 { font-size: 10.5pt; margin: 0.75rem 0 0.25rem; }
+h4 { font-size: 10pt; font-style: italic; margin: 0.6rem 0 0.2rem; }
+
+p { margin: 0 0 0.5rem; }
+
+ul, ol {
+  padding-left: 1.4rem;
+  margin: 0 0 0.5rem;
+}
+
+li { margin-bottom: 0.15rem; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 8.5pt;
+  margin-bottom: 0.7rem;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+th {
+  background: var(--brand-primary);
+  color: var(--brand-on-primary);
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 7.5pt;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 3pt 5pt;
+  text-align: left;
+}
+
+td {
+  padding: 2.5pt 5pt;
+  border-bottom: 0.5pt solid var(--brand-rule);
+  vertical-align: top;
+}
+
+tr:nth-child(even) td { background: var(--brand-bg-subtle); }
+
+// Two-column layout for datasheets in print.
+.doc-datasheet-print .doc-body {
+  column-count: 2;
+  column-gap: 1.5rem;
+}

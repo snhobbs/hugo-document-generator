@@ -1,0 +1,112 @@
+// Report cover page — full-bleed dark header and footer bands.
+//
+// Header/footer use negative margins equal to the @page margin (0.75in)
+// to bleed to the paper edge. Both WeasyPrint and Chromium honour this.
+
+$_cover-margin: 0.75in;    // must match @page { margin } in print-doc.scss
+
+.doc-cover {
+  display: flex;
+  flex-direction: column;
+  height: 9.5in;   // letter (11in) minus top+bottom @page margins (2×0.75in)
+  page-break-after: always;
+  break-after: page;
+
+  // ── Dark header band (full-bleed) ──────────────────────────────────
+  &__header {
+    background: var(--brand-cover-band);
+    color: var(--brand-on-primary);
+    margin-top:   -$_cover-margin;
+    margin-left:  -$_cover-margin;
+    margin-right: -$_cover-margin;
+    padding-top:    calc(#{$_cover-margin} + 1rem);
+    padding-left:   calc(#{$_cover-margin} + 0.5rem);
+    padding-right:  calc(#{$_cover-margin} + 0.5rem);
+    padding-bottom: 1.75rem;
+  }
+
+  &__logo {
+    img, svg {
+      height: 2.5rem;
+      width: auto;
+      display: block;
+      filter: brightness(0) invert(1);   // force logo white on dark band
+    }
+  }
+
+  &__tagline {
+    font-family: sans-serif;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.65);
+    margin-top: 0.4rem;
+  }
+
+  // ── White centre body (title area) ─────────────────────────────────
+  &__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2.5rem 0;
+  }
+
+  &__type {
+    font-family: sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--brand-doc-type);
+    border-left: 3pt solid var(--brand-doc-type);
+    padding-left: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  &__title {
+    font-family: sans-serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--brand-text);
+    margin: 0 0 0.75rem;
+  }
+
+  &__subtitle {
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--brand-muted);
+    margin: 0 0 1.5rem;
+  }
+
+  &__meta {
+    font-family: sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    color: var(--brand-muted);
+    border-top: 0.5pt solid var(--brand-rule);
+    padding-top: 0.75rem;
+  }
+
+  // ── Dark footer band (full-bleed) ──────────────────────────────────
+  &__footer-bar {
+    background: var(--brand-cover-band);
+    color: rgba(255, 255, 255, 0.8);
+    font-family: sans-serif;
+    font-size: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: -$_cover-margin;
+    margin-left:   -$_cover-margin;
+    margin-right:  -$_cover-margin;
+    padding-top:    0.75rem;
+    padding-left:   calc(#{$_cover-margin} + 0.5rem);
+    padding-right:  calc(#{$_cover-margin} + 0.5rem);
+    padding-bottom: calc(#{$_cover-margin} + 0.5rem);
+  }
+
+  &__company-name {
+    font-weight: 700;
+    color: var(--brand-on-primary);
+  }
+}

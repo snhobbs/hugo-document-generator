@@ -1,0 +1,12 @@
+baseURL = "localhost"
+
+# Only render the PDF (print) output format for pages, served as index.html
+[outputs]
+home = ['html']
+page = ["PDF"]
+
+[outputFormats.PDF]
+mediaType = "text/html"
+baseName = "index"
+isHTML = true
+rel = "canonical"

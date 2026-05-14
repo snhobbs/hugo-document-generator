@@ -1,0 +1,201 @@
+// Web document styles — imported by the project's assets/_custom.scss.
+
+@import "components/letterhead";
+@import "imgprint";
+@import "components/doc-footer";
+@import "documents/datasheet";
+@import "documents/announcement";
+@import "documents/report";
+
+// ── Datasheet two-column (web wide screens only) ─────────────────────
+
+@media screen and (min-width: 800px) {
+  .doc-datasheet .doc-body {
+    column-count: 2;
+    column-gap: 2rem;
+  }
+}
+
+// ── Shared heading area ───────────────────────────────────────────────
+
+.doc-datasheet-header,
+.doc-announcement-header,
+.doc-report-header,
+.doc-manual-header {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--gray-200, #e9ecef);
+}
+
+// ── Title & subtitle ─────────────────────────────────────────────────
+
+.doc-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0.25rem 0 0.3rem;
+  color: var(--body-font-color, #000);
+}
+
+.doc-subtitle {
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--body-font-color);
+  opacity: 0.7;
+  margin: 0 0 0.5rem;
+}
+
+// ── Meta row ─────────────────────────────────────────────────────────
+
+.doc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.75rem;
+  color: var(--body-font-color);
+  opacity: 0.55;
+  margin-bottom: 0;
+  font-family: sans-serif;
+
+  span {
+    &::after {
+      content: '·';
+      margin: 0 0.4rem;
+    }
+    &:last-child::after {
+      display: none;
+    }
+  }
+}
+
+// ── Web table overrides for doc types ────────────────────────────────
+
+.doc-datasheet,
+.doc-product-announcement,
+.doc-report,
+.doc-manual {
+  table {
+    font-size: 0.85rem;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+  }
+
+  th {
+    background: var(--brand-primary, #0057b8);
+    color: var(--brand-on-primary);
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.4rem 0.7rem;
+    text-align: left;
+    border: none;
+  }
+
+  td {
+    padding: 0.35rem 0.7rem;
+    border: none;
+    border-bottom: 1px solid var(--gray-200, #e9ecef);
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td {
+    background: var(--brand-bg-subtle, var(--gray-100, #f8f9fa));
+  }
+}
+
+// ── Section document index table ─────────────────────────────────────
+
+.doc-section-intro {
+  margin-bottom: 1.25rem;
+  color: var(--body-font-color);
+  opacity: 0.8;
+}
+
+table.doc-section-list {
+  font-size: 0.85rem;
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0;
+
+  th {
+    background: var(--brand-primary, #0057b8);
+    color: var(--brand-on-primary);
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.4rem 0.7rem;
+    text-align: left;
+    border: none;
+  }
+
+  td {
+    padding: 0.4rem 0.7rem;
+    border: none;
+    border-bottom: 1px solid var(--gray-200, #e9ecef);
+    vertical-align: top;
+
+    small {
+      opacity: 0.65;
+      display: block;
+    }
+
+    code {
+      font-size: 0.8em;
+      background: var(--brand-bg-subtle, var(--gray-100, #f8f9fa));
+      padding: 0.1em 0.3em;
+      border-radius: 2px;
+    }
+  }
+
+  tr:nth-child(even) td {
+    background: var(--brand-bg-subtle, var(--gray-100, #f8f9fa));
+  }
+}
+
+// ── Section heading brand color (web) ────────────────────────────────
+
+.doc-datasheet,
+.doc-product-announcement,
+.doc-report,
+.doc-manual {
+  .doc-body h2 {
+    color: var(--brand-primary, #0057b8);
+    font-family: sans-serif;
+  }
+}
+
+// ── Print link button ─────────────────────────────────────────────────
+
+.doc-print-link {
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.78rem;
+  font-family: sans-serif;
+  font-weight: 600;
+  color: var(--brand-primary, #0057b8);
+  border: 1px solid var(--brand-primary, #0057b8);
+  border-radius: 3px;
+  text-decoration: none;
+  opacity: 0.8;
+
+  &:hover {
+    background: var(--brand-primary, #0057b8);
+    color: var(--brand-on-primary, #fff);
+    opacity: 1;
+  }
+}
+
+@media print {
+  .doc-print-link { display: none !important; }
+}
+
+// ── Anchor links — visible on hover only, hidden in print ────────────
+
+@media print {
+  a.anchor { display: none !important; }
+}

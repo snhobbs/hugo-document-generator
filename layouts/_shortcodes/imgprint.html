@@ -1,0 +1,100 @@
+{{/* imgprint.html — print-optimised figure shortcode
+     Supports both page-bundle and global assets/ resources.
+
+     Named params (preferred):
+       {{< imgprint src="photo.jpg" cmd="Resize" opts="1200x" caption="..." layout="full" link="true" class="..." >}}
+
+     Positional params (legacy-compatible):
+       {{< imgprint "photo.jpg" "Resize" "1200x" "Caption text" "full" >}}
+
+     src     – filename; searched in page bundle first, then global assets/
+     cmd     – Fit | Resize | Fill | Crop  (default: Fit)
+     opts    – Hugo image processing options string (default: "1200x webp q85")
+     caption – figure caption; supports Markdown
+     layout  – full | 2col | 3col | right | left  (default: full)
+     link    – "true" wraps image in link to original  (default: false)
+     class   – extra CSS classes on <img>
+*/}}
+
+{{/* ── 1. Resolve parameters (named then positional fallback) ── */}}
+{{ $src     := .Get "src"     | default (.Get 0) -}}
+{{ $cmd     := .Get "cmd"     | default (.Get 1) | default "Fit" -}}
+{{ $opts    := .Get "opts"    | default (.Get 2) | default "1200x webp q85" -}}
+{{ $caption := .Get "caption" | default (.Get 3) | default "" -}}
+{{ $layout  := .Get "layout"  | default (.Get 4) | default "full" -}}
+{{ $link    := .Get "link"    | default "false" -}}
+{{ $class   := .Get "class"   | default "" -}}
+
+{{/* ── 2. Locate resource: page bundle first, global assets second ── */}}
+{{ $original := .Page.Resources.GetMatch (printf "**%s*" $src) -}}
+{{ if not $original -}}
+    {{ $original = resources.GetMatch $src -}}
+{{ end -}}
+{{ if not $original -}}
+    {{ errorf "imgprint: resource not found: %q (checked page bundle and global assets/)" $src -}}
+{{ end -}}
+
+{{/* ── 3. Process: screen (WebP) + print (high-q, no lossy format) ── */}}
+{{ $printOpts := $opts | replaceRE `webp|avif` "jpg" | replaceRE `q\d+` "q95" -}}
+
+{{ $screen := "" -}}
+{{ $print  := "" -}}
+
+{{ if eq $cmd "Fit" -}}
+    {{ $screen = $original.Fit  $opts      -}}
+    {{ $print  = $original.Fit  $printOpts -}}
+{{ else if eq $cmd "Resize" -}}
+    {{ $screen = $original.Resize $opts      -}}
+    {{ $print  = $original.Resize $printOpts -}}
+{{ else if eq $cmd "Fill" -}}
+    {{ $screen = $original.Fill  $opts      -}}
+    {{ $print  = $original.Fill  $printOpts -}}
+{{ else if eq $cmd "Crop" -}}
+    {{ $screen = $original.Crop  $opts      -}}
+    {{ $print  = $original.Crop  $printOpts -}}
+{{ else -}}
+    {{ errorf "imgprint: cmd must be Fit | Fill | Crop | Resize — got %q" $cmd -}}
+{{ end -}}
+
+{{/* ── 4. Alt text: caption → original filename → empty ── */}}
+{{ $alt := $caption | default $src | plainify -}}
+
+{{/* ── 5. Render ── */}}
+<figure class="doc-figure doc-figure--{{ $layout }}{{ with $class }} {{ . }}{{ end }}">
+
+  {{ if eq $link "true" -}}
+  <a href="{{ $original.RelPermalink }}" class="doc-figure__link">
+  {{ end -}}
+
+    {{/* Screen copy — hidden at print time via CSS */}}
+    <img class="doc-figure__img doc-figure__img--screen"
+         src="{{ $screen.RelPermalink }}"
+         width="{{ $screen.Width }}"
+         height="{{ $screen.Height }}"
+         loading="lazy"
+         decoding="async"
+         alt="{{ $alt }}">
+
+    {{/* Print copy — high quality, shown only by @media print */}}
+    <img class="doc-figure__img doc-figure__img--print"
+         src="{{ $print.RelPermalink }}"
+         width="{{ $print.Width }}"
+         height="{{ $print.Height }}"
+         alt="{{ $alt }}">
+
+  {{ if eq $link "true" -}}
+  </a>
+  {{ end -}}
+
+  {{ with $caption -}}
+  <figcaption class="doc-figure__caption">
+    {{/* Comment required — closes HTML block for CommonMark parser.        */}}
+    {{/* See https://spec.commonmark.org/0.30/#html-blocks rule 7           */}}
+    {{ . | markdownify -}}
+    {{ with $original.Params.byline -}}
+    <small class="doc-figure__byline">{{ . }}</small>
+    {{ end -}}
+  </figcaption>
+  {{ end -}}
+
+</figure>

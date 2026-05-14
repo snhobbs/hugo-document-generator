@@ -1,0 +1,6 @@
+{{- $b := hugo.Data.brand -}}
+<footer class="doc-doc-footer">
+  <div class="doc-doc-footer__left">{{ $b.company.name }}{{ with .Title }} &mdash; {{ . }}{{ end }} &mdash;&nbsp; {{- with .Params.revision }}Rev&nbsp;{{ . }} &middot; {{- end }} {{ .Date.Format "Jan 2006" }}</div>
+  <div class="doc-doc-footer__right"><span class="doc-doc-footer__page"></span></div>
+</footer>
+

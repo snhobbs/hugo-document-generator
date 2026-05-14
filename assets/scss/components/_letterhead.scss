@@ -1,0 +1,71 @@
+// Branded letterhead — used in both web doc headers and print layouts.
+
+.doc-letterhead {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: end;
+  gap: 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid var(--brand-primary);
+  margin-bottom: 1.25rem;
+
+  &__logo {
+    align-self: stretch;   // stretches to match the contact block's height
+    display: flex;
+    align-items: center;
+    width: auto;
+    overflow: visible;
+  }
+
+  // (0,2,1) beats .markdown img (0,1,1) unconditionally
+  & &__logo img,
+  & &__logo svg {
+    height: 3rem!important;
+    width: auto;
+    display: block;
+  }
+
+  &__contact {
+    text-align: right;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 8pt;
+    line-height: 1.55;
+    color: var(--brand-text);
+  }
+
+  &__company {
+    display: block;
+    font-weight: 700;
+    color: var(--brand-primary);
+    font-size: 9pt;
+    letter-spacing: 0.01em;
+    margin-bottom: 1px;
+  }
+
+  &__line {
+    display: block;
+  }
+
+  &__doc-type {
+    align-self: end;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--brand-doc-type);
+    border: 1px solid var(--brand-doc-type);
+    padding: 2pt 6pt;
+    border-radius: 2px;
+    margin-bottom: 1pt;
+    white-space: nowrap;
+  }
+}
+
+.doc-letterhead + hr,
+.doc-letterhead::after {
+  border: none;
+  border-top: 1px solid var(--brand-rule);
+  margin: 0 0 1.25rem;
+}
+

@@ -1,0 +1,19 @@
+{{ define "main" }}
+<article class="markdown book-article doc-product-announcement">
+  {{ partial "brand/letterhead" . }}
+  <div class="doc-announcement-header">
+    <div class="doc-announcement-banner">Product Announcement</div>
+    <h1 class="doc-title">{{ .Title }}</h1>
+    {{- with .Params.description }}<p class="doc-subtitle">{{ . }}</p>{{- end }}
+    <div class="doc-meta">
+      <span>{{ .Date.Format "January 2, 2006" }}</span>
+      {{- with .Params.availability }}<span>Available: {{ . }}</span>{{- end }}
+      {{- with .Params.contact }}<span>{{ . }}</span>{{- end }}
+    </div>
+  </div>
+  {{ partial "print-link" . }}
+  <div class="doc-body">
+    {{- .Content -}}
+  </div>
+</article>
+{{ end }}

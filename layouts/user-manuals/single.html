@@ -1,0 +1,19 @@
+{{ define "main" }}
+<article class="markdown book-article doc-manual">
+  {{ partial "brand/letterhead" . }}
+  <div class="doc-manual-header">
+    <h1 class="doc-title">{{ .Title }}</h1>
+    {{- with .Params.description }}<p class="doc-subtitle">{{ . }}</p>{{- end }}
+    <div class="doc-meta">
+      {{- with .Params.part_number }}<span>P/N: {{ . }}</span>{{- end }}
+      {{- with .Params.hardware_revision }}<span>HW {{ . }}</span>{{- end }}
+      {{- with .Params.firmware_version }}<span>FW {{ . }}</span>{{- end }}
+      <span>{{ .Date.Format "January 2006" }}</span>
+    </div>
+  </div>
+  {{ partial "print-link" . }}
+  <div class="doc-body">
+    {{- .Content -}}
+  </div>
+</article>
+{{ end }}

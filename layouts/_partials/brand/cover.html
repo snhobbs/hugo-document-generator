@@ -1,0 +1,37 @@
+{{- $b := hugo.Data.brand -}}
+{{- $logoResource := resources.Get "logos/logo-print.svg" -}}
+<div class="doc-cover">
+
+  {{- /* ── Dark header band ───────────────────────────────────────── */ -}}
+  <div class="doc-cover__header">
+    <div class="doc-cover__logo">
+      {{- if $logoResource -}}
+      {{- $logoResource.Content | replaceRE `<\?xml[^?]*\?>` "" | safeHTML -}}
+      {{- else -}}
+      <img src="{{ $b.logos.print | default "/logos/logo-print.svg" }}" alt="{{ $b.company.name }}">
+      {{- end -}}
+    </div>
+    {{- with $b.company.tagline }}
+    <div class="doc-cover__tagline">{{ . }}</div>
+    {{- end }}
+  </div>
+
+  {{- /* ── Title block ──────────────────────────────────────────────── */ -}}
+  <div class="doc-cover__body">
+    <div class="doc-cover__type">Report</div>
+    <h1 class="doc-cover__title">{{ .Title }}</h1>
+    {{- with .Params.subtitle }}<p class="doc-cover__subtitle">{{ . }}</p>{{- end }}
+    <div class="doc-cover__meta">
+      {{- with .Params.author }}<div>{{ . }}</div>{{- end }}
+      <div>{{ .Date.Format "January 2, 2006" }}</div>
+      {{- with .Params.revision }}<div>Revision {{ . }}</div>{{- end }}
+    </div>
+  </div>
+
+  {{- /* ── Dark footer band ───────────────────────────────────────── */ -}}
+  <div class="doc-cover__footer-bar">
+    <span class="doc-cover__company-name">{{ $b.company.name }}</span>
+    <span class="doc-cover__company-web">{{ $b.company.website }}</span>
+  </div>
+
+</div>

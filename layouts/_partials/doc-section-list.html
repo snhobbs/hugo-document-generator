@@ -1,0 +1,38 @@
+{{- /* Renders _index.md content then a table of all pages in the section. */ -}}
+<article class="markdown book-article">
+  {{- with .Content }}<div class="doc-section-intro">{{ . }}</div>{{ end -}}
+
+  <table class="doc-section-list">
+    <thead>
+      <tr>
+        <th>Title</th>
+        {{- if eq .Type "datasheets" }}<th>P/N</th>{{ end -}}
+        {{- if eq .Type "reports" }}<th>Author</th>{{ end -}}
+        {{- if eq .Type "product-announcements" }}<th>Availability</th>{{ end -}}
+        <th>Rev</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{- range .Pages.ByDate.Reverse -}}
+      <tr>
+        <td>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          {{- with .Params.description }}<br><small>{{ . }}</small>{{ end -}}
+        </td>
+        {{- if eq $.Type "datasheets" }}
+        <td><code>{{ .Params.part_number | default "—" }}</code></td>
+        {{ end -}}
+        {{- if eq $.Type "reports" }}
+        <td>{{ .Params.author | default "—" }}</td>
+        {{ end -}}
+        {{- if eq $.Type "product-announcements" }}
+        <td>{{ .Params.availability | default "—" }}</td>
+        {{ end -}}
+        <td>{{ .Params.revision | default "—" }}</td>
+        <td>{{ .Date.Format "Jan 2006" }}</td>
+      </tr>
+      {{- end -}}
+    </tbody>
+  </table>
+</article>

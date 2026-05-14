@@ -1,0 +1,22 @@
+// Datasheet — two-column layout and shared column rules.
+// Media queries live in _web-doc.scss (screen only).
+// print-doc.scss sets column-count directly (no media query needed).
+
+.doc-datasheet {
+  .doc-announcement-banner { display: none; }
+}
+
+.doc-datasheet .doc-body,
+.doc-datasheet-print .doc-body {
+  h2 {
+    column-span: all;
+    break-after: avoid;
+    border-bottom: 1px solid var(--brand-secondary, #00a3e0);
+    padding-bottom: 0.2rem;
+    margin-top: 1.5rem;
+  }
+
+  table {
+    break-inside: avoid;
+  }
+}

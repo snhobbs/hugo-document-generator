@@ -1,0 +1,33 @@
+company:
+  name: "Company"
+  website: "website.app"
+  tagline: "Tagline"
+  email: email@localhost
+  address1: address 1
+  address2: address 2
+  phone: +1-111-111-1111
+
+branding:
+  primary: "#1C663A"
+  secondary: "#4A5568"
+  accent: "#B79431"
+  text: "#1a1a2e"
+  rule: "#1a1a2e"
+  background: "#ffffff"
+  on_primary: "#F7FAFC"
+  muted: "#666666"
+  bg_subtle: "#f5f5f5"
+  cover_band: "#0e1b35"
+  doc_type: "#1A202C"
+
+logos:
+  light: "/logos/logo.svg"
+  dark: "/logos/logo-dark.svg"
+  print: "/logos/logo-print.svg"
+
+pdf:
+  page_size: "letter"
+  margin: "0.75in"
+
+footer:
+  copyright: "© 2026 Company Name. All Rights Reserved."

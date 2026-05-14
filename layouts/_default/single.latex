@@ -1,0 +1,57 @@
+{{- $brand := hugo.Data.brand -}}
+{{- $company := $brand.company -}}
+{{- $productName := or .Params.productName .Params.part_number .Title -}}
+{{- $sectionDefaults := dict "datasheets" "Data Sheet" "product-announcements" "Product Announcement" "user-manuals" "User Manual" -}}
+{{- $defaultDocType := or (index $sectionDefaults .Section) (humanize .Section) -}}
+{{- $docType := or .Params.docType $defaultDocType -}}
+{{- $website := $company.website -}}
+{{- $websiteDisplay := replaceRE "^https?://" "" $website | strings.TrimRight "/" -}}
+\documentclass{brochure}
+
+\renewcommand\docType{ {{- $docType -}} }
+\renewcommand\date{ {{- .Date.Format "January 2, 2006" -}} }
+\renewcommand\productName{ {{- $productName -}} }
+\renewcommand\logo{templates/logo-print}
+\renewcommand\email{ {{- $company.email -}} }
+\renewcommand\addressA{ {{- $company.address1 -}} }
+\renewcommand\addressB{ {{- $company.address2 -}} }
+\renewcommand\phone{ {{- $company.phone -}} }
+\renewcommand\website{\href{ {{- $website -}} }{ {{- $websiteDisplay -}} }}
+\renewcommand\company{ {{- $company.name -}} }
+
+\usepackage[linkbordercolor=webblue]{hyperref}
+\usepackage{rotating,graphicx}
+
+\hypersetup{
+    unicode=false,
+    pdftoolbar=true,
+    pdfmenubar=true,
+    pdffitwindow=false,
+    pdfstartview={FitH},
+    pdftitle={\docType},
+    pdfauthor={\company},
+    pdfsubject={\productName~\docType},
+    pdfnewwindow=true,
+    colorlinks=true,
+    linkcolor=darkblue,
+    citecolor=darkblue,
+    filecolor=darkblue,
+    urlcolor=darkblue,
+    linktoc=page,
+}
+
+\begin{document}
+
+\begin{brochure}
+\begin{page}
+{{ with .Params.latex_page }}{{ . }}
+{{ end -}}
+\end{page}
+
+\begin{lastpage}
+{{ with .Params.latex_lastpage }}{{ . }}
+{{ end -}}
+\end{lastpage}
+
+\end{brochure}
+\end{document}

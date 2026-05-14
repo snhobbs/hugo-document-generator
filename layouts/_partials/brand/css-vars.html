@@ -1,0 +1,18 @@
+{{- $b := hugo.Data.brand -}}
+{{- if $b }}
+<style>
+:root {
+  --brand-primary:    {{ $b.branding.primary    | default "#1c663a" }};
+  --brand-secondary:  {{ $b.branding.secondary  | default "#1c663a" }};
+  --brand-accent:     {{ $b.branding.accent     | default "#1c663a" }};
+  --brand-text:       {{ $b.branding.text       | default "#111211" }};
+  --brand-bg:         {{ $b.branding.background | default "#ffffff" }};
+  --brand-on-primary: {{ $b.branding.on_primary | default "#ffffff" }};
+  --brand-muted:      {{ $b.branding.muted      | default "#646966" }};
+  --brand-rule:       {{ $b.branding.rule       | default "#b5b9b6" }};
+  --brand-bg-subtle:  {{ $b.branding.bg_subtle  | default "#f5f6f5" }};
+  --brand-cover-band: {{ $b.branding.cover_band | default "#0d3320" }};
+  --brand-doc-type:   {{ $b.branding.doc_type   | default "#1c663a" }};
+}
+</style>
+{{- end -}}

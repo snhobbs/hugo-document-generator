@@ -1,0 +1,30 @@
+{{- $b := hugo.Data.brand -}}
+{{- $logoPath := $b.logos.light | default "/logos/logo.svg" | strings.TrimPrefix "/" -}}
+{{- $logoResource := resources.Get $logoPath -}}
+{{- $docType := .Type | replaceRE "s$" "" | replaceRE "-" " " | title -}}
+
+<header class="doc-letterhead">
+  <div class="doc-letterhead__logo">
+    {{- if $logoResource -}}
+      {{/* Use the resource's URL to render as an <img> tag */}}
+      <img src="{{ $logoResource.RelPermalink }}" alt="{{ $b.company.name }}">
+    {{- else -}}
+      {{/* Fallback if the resource isn't found in assets/ */}}
+      <img src="{{ $b.logos.light | default "/logos/logo.svg" | relURL }}" alt="{{ $b.company.name }}">
+    {{- end -}}
+  </div>
+
+  <div class="doc-letterhead__contact">
+    <span class="doc-letterhead__company">{{ $b.company.name }}</span>
+    {{- with $b.company.address }}
+      {{- range . }}
+        <span class="doc-letterhead__line">{{ . }}</span>
+      {{- end }}
+    {{- end }}
+    {{- with $b.company.phone }}<span class="doc-letterhead__line">{{ . }}</span>{{- end }}
+    {{- with $b.company.email }}<span class="doc-letterhead__line">{{ . }}</span>{{- end }}
+    {{- with $b.company.website }}<span class="doc-letterhead__line">{{ . }}</span>{{- end }}
+  </div>
+
+
+</header>

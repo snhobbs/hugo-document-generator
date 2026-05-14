@@ -1,0 +1,12 @@
+{{- $path := .Get 0 -}}
+{{- $page := .Page.GetPage $path -}}
+{{- if $page -}}
+  {{- $page.Content -}}
+{{- else -}}
+  {{- $res := .Page.Resources.GetMatch $path -}}
+  {{- if $res -}}
+    {{- $res.Content -}}
+  {{- else -}}
+    <!-- include: "{{ $path }}" not found -->
+  {{- end -}}
+{{- end -}}

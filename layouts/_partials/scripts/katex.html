@@ -1,0 +1,12 @@
+{{ $version := .Site.Params.katex.version | default "latest" -}}
+{{ $min := cond hugo.IsProduction ".min" "" -}}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@{{ $version }}/dist/katex{{ $min }}.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@{{ $version }}/dist/katex{{ $min }}.js" crossorigin="anonymous"></script>
+
+{{ if .mhchem -}}
+{{ partial "scripts/mhchem.html" (dict "version" $version) -}}
+{{ end -}}
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@{{ $version }}/dist/contrib/auto-render{{ $min }}.js" crossorigin="anonymous"
+  {{ printf "onload='renderMathInElement(%s, %s);'" ((.Page.Site.Params.katex.html_dom_element | default "document.body") | safeJS) (.Page.Site.Params.katex.options | jsonify) | safeHTMLAttr }}></script>

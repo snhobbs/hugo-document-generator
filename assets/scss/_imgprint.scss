@@ -1,0 +1,51 @@
+/* ── Figures ─────────────────────────────────────────────── */
+
+/* element+class selectors (specificity 0,1,1) match the book theme's
+   .markdown figure / .markdown img selectors; cascade order wins since
+   _custom.scss is imported last in book.scss. */
+
+figure.doc-figure {
+  margin: 1.25rem 0;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+figure.doc-figure--full             { width: 100%; }
+figure.doc-figure--2col             { width: 48%; display: inline-block; vertical-align: top; }
+figure.doc-figure--3col             { width: 31%; display: inline-block; vertical-align: top; }
+figure.doc-figure--right            { float: right; margin-left: 1.25rem; width: 45%; }
+figure.doc-figure--left             { float: left;  margin-right: 1.25rem; width: 45%; }
+
+a.doc-figure__link                  { display: block; text-decoration: none; }
+a.doc-figure__link:focus            { outline: 2px solid var(--brand-primary); outline-offset: 3px; }
+
+img.doc-figure__img                 { width: 100%; height: auto; display: block; }
+
+/* (0,2,1) > .markdown figure figcaption (0,1,2) */
+figure.doc-figure > figcaption.doc-figure__caption {
+  font-family: sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--brand-muted);
+  margin-top: 0.4rem;
+}
+
+small.doc-figure__byline            { display: block; margin-top: 0.15rem; font-style: italic; }
+
+/* ── Screen/print image toggling ─────────────────────────── */
+img.doc-figure__img--print          { display: none; }
+
+@media print {
+  img.doc-figure__img--screen       { display: none; }
+  img.doc-figure__img--print        { display: block; }
+
+  figure.doc-figure > figcaption.doc-figure__caption { font-size: 7.5pt; }
+
+  figure.doc-figure--right,
+  figure.doc-figure--left {
+    float: none;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

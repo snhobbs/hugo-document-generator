@@ -1,0 +1,97 @@
+// Document footer — one set of elements serves both WeasyPrint and Chrome.
+//
+// HTML structure (all .pdf.html templates):
+//   <table class="doc-page">
+//     <tfoot><tr><td>{{ partial "brand/doc-footer" . }}</td></tr></tfoot>
+//     <tbody><tr><td>...content...</td></tr></tbody>
+//   </table>
+//
+// WeasyPrint: position:running() pulls children into @page margin boxes
+//   (defined in print-doc.scss). The tfoot shell stays but has no height.
+//
+// Chrome: position:running() is unknown → treated as static → children
+//   remain in the tfoot. We hide the tfoot wrapper with visibility:hidden
+//   while the footer div overrides to visibility:visible + position:fixed,
+//   so it repeats at the bottom of every printed page without needing tfoot
+//   repeating behaviour. The page number appears via @page @bottom-right
+//   (also defined in print-doc.scss).
+
+.doc-doc-footer__left,
+.doc-doc-footer__center,
+.doc-doc-footer__right {
+  font-size: 7.5pt;
+  color: var(--brand-muted);
+  font-family: sans-serif;
+}
+
+
+// ── WeasyPrint / Prince ───────────────────────────────────────────────────────
+
+@supports (position: running(any)) {
+  .doc-doc-footer          { height: 0; overflow: hidden; }
+  .doc-doc-footer__left    { position: running(footer-left); }
+  .doc-doc-footer__center  { position: running(footer-center); text-align: center; }
+  .doc-doc-footer__right   { position: running(footer-right);  text-align: right; }
+
+  table.doc-page > tfoot > tr > td {
+    padding: 0 !important;
+    border:  0 !important;
+  }
+
+  // Keep at least 1 body line-height of clear space before the footer rule.
+  table.doc-page > tbody > tr > td {
+    padding-bottom: 0rem;
+  }
+}
+
+// ── Chromium browser print ────────────────────────────────────────────────────
+
+@supports not (position: running(any)) {
+  table.doc-page > tfoot { visibility: hidden; }
+
+  table.doc-page {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    font-size: inherit;
+  }
+
+  table.doc-page > tbody > tr > td {
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    vertical-align: top;
+  }
+
+  @media screen { table.doc-page > tfoot { display: none; } }
+
+  @media print {
+    // This creates an invisible box at the bottom of every page 
+    // that "pushes" the tbody content up.
+    table.doc-page > tfoot {
+      visibility: hidden; 
+      display: table-footer-group; /* Ensure it stays as a table footer */
+      height: 2rem; 
+    }
+
+    .doc-doc-footer {
+      //height: 2rem; /* Explicit height helps prevent overlapping */
+      visibility: visible;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0;
+      padding-top: 0.5rem;
+      border-top: 0.5pt solid var(--brand-rule);
+      background: var(--brand-bg);
+    }
+
+    .doc-doc-footer__left  { flex: 1; min-width: 0; }
+    .doc-doc-footer__center { flex: 1; min-width: 0; text-align: center; }
+    .doc-doc-footer__right { display: flex;  text-align: left; justify-content: flex-end;}
+  }
+}
