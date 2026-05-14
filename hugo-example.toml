@@ -1,0 +1,116 @@
+title = "Hugo Document Generator"
+subtitle = "HTML-PDF Co-Generation"
+baseURL = "localhost"
+resourceDir = "resources"
+enableRobotsTXT = true
+
+IsProduction = true
+languageCode = "en-us"
+
+author = ['Author']
+FAVICON = 'favicon.ico'
+TIMEZONE = 'America/New_York'
+
+SectionPagesMenu = "main"
+disableHugoGeneratorInject = true
+enableGitInfo = false
+
+[module]
+[module.hugoVersion]
+extended = true
+min = "0.110.0"
+
+[[module.imports]]
+path = "github.com/alex-shpak/hugo-book"
+
+[[module.imports]]
+path = "brand"
+disable = false
+
+[languages]
+[languages.en]
+weight = 1
+contentDir = "content"
+
+
+DefaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+enableMissingTranslationPlaceholders = true
+
+[menu]
+[[menu.home]]
+name = 'Documentation'
+pageRef = '/docs/example/'
+weight = 1
+
+[[menu.home]]
+pageRef = '/docs/example/'
+weight = 10
+parent = 'Documentation'
+
+[imaging]
+resampleFilter = "CatmullRom"
+quality = 75
+anchor = "smart"
+
+[markup]
+[markup.goldmark]
+[markup.goldmark.parser.attribute]
+block = true
+[markup.goldmark.renderer]
+unsafe = true
+[markup.highlight]
+guessSyntax = "false"
+
+[markup.goldmark.extensions]
+[markup.goldmark.extensions.passthrough]
+enable = true
+[markup.goldmark.extensions.passthrough.delimiters]
+block = [['\[', '\]'], ['$$', '$$']]
+inline = [['\(', '\)'], ['$', '$']]
+
+[outputs]
+home = ['html']
+page = ["HTML", "PDF"]
+
+[outputFormats.PDF]
+mediaType = "text/html"
+baseName = "print"
+isHTML = true
+rel = "alternate"
+
+[mediaTypes."application/x-tex"]
+suffixes = ["tex"]
+
+[outputFormats.Latex]
+mediaType = "application/x-tex"
+baseName = "brochure"
+isPlainText = true
+notAlternative = true
+
+[params]
+offlineSearch = true
+
+prism_syntax_highlighting = true
+BookTheme = 'light'
+BookSection = '/'
+BookDateFormat = '2006-01-23'
+BookSearch = true
+BookPortableLinks = 'warning'
+
+[params.katex]
+enable = false
+
+[[params.links.user]]
+name = "rss feed"
+url = "/index.xml"
+icon = "fa fa-rss"
+desc = "rss feed"
+
+[params.mermaid]
+version = "10.9.0"
+enable = true
+theme = "neutral"
+
+[params.mermaid.flowchart]
+diagramPadding = 6
