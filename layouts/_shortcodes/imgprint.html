@@ -40,7 +40,11 @@
 {{ $screen := "" -}}
 {{ $print  := "" -}}
 
-{{ if eq $cmd "Fit" -}}
+{{/* SVGs are vector — skip raster processing and serve as-is */}}
+{{ if eq $original.MediaType.SubType "svg" -}}
+    {{ $screen = $original -}}
+    {{ $print  = $original -}}
+{{ else if eq $cmd "Fit" -}}
     {{ $screen = $original.Fit  $opts      -}}
     {{ $print  = $original.Fit  $printOpts -}}
 {{ else if eq $cmd "Resize" -}}
@@ -67,6 +71,13 @@
   {{ end -}}
 
     {{/* Screen copy — hidden at print time via CSS */}}
+    {{ if eq $original.MediaType.SubType "svg" -}}
+    <img class="doc-figure__img doc-figure__img--screen"
+         src="{{ $screen.RelPermalink }}"
+         loading="lazy"
+         decoding="async"
+         alt="{{ $alt }}">
+    {{ else -}}
     <img class="doc-figure__img doc-figure__img--screen"
          src="{{ $screen.RelPermalink }}"
          width="{{ $screen.Width }}"
@@ -74,13 +85,20 @@
          loading="lazy"
          decoding="async"
          alt="{{ $alt }}">
+    {{ end -}}
 
     {{/* Print copy — high quality, shown only by @media print */}}
+    {{ if eq $original.MediaType.SubType "svg" -}}
+    <img class="doc-figure__img doc-figure__img--print"
+         src="{{ $print.RelPermalink }}"
+         alt="{{ $alt }}">
+    {{ else -}}
     <img class="doc-figure__img doc-figure__img--print"
          src="{{ $print.RelPermalink }}"
          width="{{ $print.Width }}"
          height="{{ $print.Height }}"
          alt="{{ $alt }}">
+    {{ end -}}
 
   {{ if eq $link "true" -}}
   </a>
