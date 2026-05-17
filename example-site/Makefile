@@ -2,10 +2,15 @@ SHELL        := /bin/bash
 PUBLIC_PRINT := public_print
 PUBLIC       := public
 PDF_DIR      := build/playwright
+SCRIPTS      := ../scripts
+
 
 .PHONY: build hugo-print hugo-build pdf pdf-all clean
 
 build: hugo-print pdf-all
+
+serve:
+	hugo serve 
 
 hugo-print:
 	hugo --config hugo.toml,hugo.print.toml --destination $(PUBLIC_PRINT)
@@ -13,7 +18,7 @@ hugo-print:
 pdf: hugo-print
 	@test -n "$(CONTENT)" || (echo "Usage: make pdf CONTENT=<section/slug>"; exit 1)
 	mkdir -p $(PDF_DIR)
-	python3 scripts/playwright-pdf.py \
+	python3 $(SCRIPTS)/playwright-pdf.py \
 	    "file://$(CURDIR)/$(PUBLIC_PRINT)/$(CONTENT)/index.html" \
 	    "$(PDF_DIR)/$(subst /,-,$(CONTENT)).pdf"
 	@echo "Written: $(PDF_DIR)/$(subst /,-,$(CONTENT)).pdf"
@@ -26,7 +31,7 @@ pdf-all: hugo-print
 	    rel="$${f#$(PUBLIC_PRINT)/}"; rel="$${rel%/index.html}"; \
 	    slug="$${rel//\//-}"; \
 	    echo "  $$rel → $$slug.pdf"; \
-	    python3 scripts/playwright-pdf.py \
+	    python3 (SCRIPTS)/playwright-pdf.py \
 	        "file://$(CURDIR)/$$f" \
 	        "$(PDF_DIR)/$$slug.pdf"; \
 	done
