@@ -3,9 +3,13 @@ title: {{ replace .Name "-" " " | title }}
 description: "One-line summary of the announcement"
 date: {{ .Date }}
 draft: true
+part_number: ""
+revision: ""
 productName: ""
 availability: "Q3 2026"
 contact: "sales@example.com"
+categories: []
+tags: []
 latex_page: |
   \sectionTitle{Product Name}{-10pt}
 

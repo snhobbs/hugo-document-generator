@@ -6,6 +6,8 @@ date: {{ .Date }}
 draft: true
 author: ""
 revision: "1.0"
+categories: []
+tags: []
 ---
 
 ## Executive Summary

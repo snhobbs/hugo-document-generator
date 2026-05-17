@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang | default "en" }}">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ .Title }}</title>
+  {{ partial "brand/css-vars" . }}
+  {{- $css := resources.Get "scss/print-doc.scss" | css.Sass -}}
+  <style>{{ $css.Content | safeCSS }}</style>
+  {{ partial "scripts/mathjax.html" . }}
+</head>
+<body class="doc-print doc-product-class-print">
+  {{- $tag := .Params.product_tag -}}
+  {{- $self := . -}}
+  {{- $related := slice -}}
+  {{- if $tag -}}
+    {{- $all := where .Site.RegularPages "Params.tags" "intersect" (slice $tag) -}}
+    {{- $related = where $all "Permalink" "ne" $self.Permalink -}}
+  {{- end -}}
+
+  <table class="doc-page">
+    <tfoot><tr><td>{{ partial "brand/doc-footer" . }}</td></tr></tfoot>
+    <tbody><tr><td>
+      {{ partial "brand/letterhead" . }}
+      <div class="doc-print-title-block">
+        <h1 class="doc-title">{{ .Title }}</h1>
+        {{- with .Params.description }}<p class="doc-subtitle">{{ . }}</p>{{- end }}
+        <div class="doc-meta">
+          <span>{{ .Date.Format "January 2006" }}</span>
+        </div>
+      </div>
+
+      {{- with .Content }}
+      <div class="doc-body">{{ . }}</div>
+      {{- end }}
+
+      {{- if $related }}
+      <div class="doc-product-class-toc">
+        <h2>Contents</h2>
+        <ul>
+          {{- range $related -}}
+          <li>{{ .Title }}{{- with .Params.description }} — {{ . }}{{- end }}</li>
+          {{- end -}}
+        </ul>
+      </div>
+
+      {{- range $related }}
+      <div class="doc-product-class-doc" style="page-break-before: always;">
+        <h2>{{ .Title }}</h2>
+        {{- with .Params.description }}<p class="doc-subtitle">{{ . }}</p>{{- end }}
+        <div class="doc-body">
+          {{- .Content -}}
+        </div>
+      </div>
+      {{- end }}
+      {{- end }}
+
+    </td></tr></tbody>
+  </table>
+</body>
+</html>

@@ -9,6 +9,8 @@
         {{- if eq .Type "datasheets" }}<th>P/N</th>{{ end -}}
         {{- if eq .Type "reports" }}<th>Author</th>{{ end -}}
         {{- if eq .Type "product-announcements" }}<th>Availability</th>{{ end -}}
+        {{- if eq .Type "application-notes" }}<th>Application</th><th>Market</th>{{ end -}}
+        {{- if eq .Type "technical-notes" }}<th>Subject</th>{{ end -}}
         <th>Rev</th>
         <th>Date</th>
       </tr>
@@ -28,6 +30,13 @@
         {{ end -}}
         {{- if eq $.Type "product-announcements" }}
         <td>{{ .Params.availability | default "—" }}</td>
+        {{ end -}}
+        {{- if eq $.Type "application-notes" }}
+        <td>{{ .Params.application | default "—" }}</td>
+        <td>{{ .Params.market | default "—" }}</td>
+        {{ end -}}
+        {{- if eq $.Type "technical-notes" }}
+        <td>{{ .Params.subject | default "—" }}</td>
         {{ end -}}
         <td>{{ .Params.revision | default "—" }}</td>
         <td>{{ .Date.Format "Jan 2006" }}</td>

@@ -6,6 +6,8 @@ draft: true
 part_number: ""
 revision: "A"
 productName: ""
+categories: []
+tags: []
 latex_page: |
   \sectionTitle{Product Name}{-10pt}
 

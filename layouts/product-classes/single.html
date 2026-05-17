@@ -1,0 +1,56 @@
+{{ define "main" }}
+{{- $tag := .Params.product_tag -}}
+{{- $self := . -}}
+{{- $related := slice -}}
+{{- if $tag -}}
+  {{- $all := where .Site.RegularPages "Params.tags" "intersect" (slice $tag) -}}
+  {{- $related = where $all "Permalink" "ne" $self.Permalink -}}
+{{- end -}}
+
+<article class="markdown book-article doc-product-class">
+  {{ partial "brand/letterhead" . }}
+  <div class="doc-product-class-header">
+    <h1 class="doc-title">{{ .Title }}</h1>
+    {{- with .Params.description }}<p class="doc-subtitle">{{ . }}</p>{{- end }}
+    <div class="doc-meta">
+      <span>{{ .Date.Format "January 2006" }}</span>
+    </div>
+  </div>
+  {{ partial "print-link" . }}
+
+  {{- with .Content }}
+  <div class="doc-body doc-product-class-intro">{{ . }}</div>
+  {{- end }}
+
+  {{- if $related }}
+  <div class="doc-product-class-toc">
+    <h2>Contents</h2>
+    <ul>
+      {{- range $related -}}
+      <li>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        {{- with .Params.description }} — {{ . }}{{- end }}
+      </li>
+      {{- end -}}
+    </ul>
+  </div>
+
+  {{- range $related.GroupBy "Type" }}
+  <section class="doc-product-class-section">
+    <h2>{{ .Key | replaceRE "-" " " | title }}</h2>
+    {{- range .Pages }}
+    <div class="doc-product-class-doc">
+      <h3>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      </h3>
+      {{- with .Params.description }}<p class="doc-subtitle">{{ . }}</p>{{- end }}
+      <div class="doc-body">
+        {{- .Content -}}
+      </div>
+    </div>
+    {{- end }}
+  </section>
+  {{- end }}
+  {{- end }}
+</article>
+{{ end }}

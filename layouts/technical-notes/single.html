@@ -1,0 +1,27 @@
+{{ define "main" }}
+<article class="markdown book-article doc-technical-note">
+  {{ partial "brand/letterhead" . }}
+  <div class="doc-announcement-header">
+    <div class="doc-announcement-banner">Technical Note</div>
+    <h1 class="doc-title">{{ .Title }}</h1>
+    {{- with .Params.subtitle }}<p class="doc-subtitle">{{ . }}</p>{{- end }}
+    <div class="doc-meta">
+      {{- with .Params.author }}<span>{{ . }}</span>{{- end }}
+      <span>{{ .Date.Format "January 2, 2006" }}</span>
+      {{- with .Params.revision }}<span>Rev {{ . }}</span>{{- end }}
+      {{- with .Params.subject }}<span>{{ . }}</span>{{- end }}
+    </div>
+    {{- with .Params.products }}
+    <div class="doc-meta">
+      <span>Related products:
+        {{- range . }} <a href="{{ printf "/product-classes/%s" . | relURL }}">{{ . }}</a>{{- end -}}
+      </span>
+    </div>
+    {{- end }}
+  </div>
+  {{ partial "print-link" . }}
+  <div class="doc-body">
+    {{- .Content -}}
+  </div>
+</article>
+{{ end }}
