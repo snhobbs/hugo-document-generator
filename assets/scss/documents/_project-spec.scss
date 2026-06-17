@@ -1,21 +1,5 @@
 // Project specification — single-column with prominent requirements tables.
-
-.doc-project-spec,
-.doc-project-spec-print {
-  .doc-project-spec-header {
-    margin-bottom: 1rem;
-  }
-
-  table {
-    // Override the global print width: 100% — spec tables size to content.
-    width: auto;
-    break-inside: avoid;
-    page-break-inside: avoid;
-  }
-
-  // Distinguish priority/ID columns from content.
-  td:first-child {
-    font-family: monospace;
-    white-space: nowrap;
-  }
+.doc-project-spec-doc {
+  break-before: page;
+  page-break-before: always;
 }

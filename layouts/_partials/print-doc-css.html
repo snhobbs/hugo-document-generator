@@ -1,0 +1,2 @@
+{{- $css := resources.Get "scss/print-doc.scss" | css.Sass | fingerprint -}}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}">

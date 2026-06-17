@@ -3,12 +3,12 @@
 // Header/footer use negative margins equal to the @page margin (0.75in)
 // to bleed to the paper edge. Both WeasyPrint and Chromium honour this.
 
-$_cover-margin: 0.75in;    // must match @page { margin } in print-doc.scss
+// $_page-height, $_page-margin declared in print-doc.scss before this import.
 
 .doc-cover {
   display: flex;
   flex-direction: column;
-  height: 9.5in;   // letter (11in) minus top+bottom @page margins (2×0.75in)
+  height: $_page-height - 2 * $_page-margin;
   page-break-after: always;
   break-after: page;
 
@@ -16,12 +16,12 @@ $_cover-margin: 0.75in;    // must match @page { margin } in print-doc.scss
   &__header {
     background: var(--brand-cover-band);
     color: var(--brand-on-primary);
-    margin-top:   -$_cover-margin;
-    margin-left:  -$_cover-margin;
-    margin-right: -$_cover-margin;
-    padding-top:    calc(#{$_cover-margin} + 1rem);
-    padding-left:   calc(#{$_cover-margin} + 0.5rem);
-    padding-right:  calc(#{$_cover-margin} + 0.5rem);
+    margin-top:   -$_page-margin;
+    margin-left:  -$_page-margin;
+    margin-right: -$_page-margin;
+    padding-top:    calc(#{$_page-margin} + 1rem);
+    padding-left:   calc(#{$_page-margin} + 0.5rem);
+    padding-right:  calc(#{$_page-margin} + 0.5rem);
     padding-bottom: 1.75rem;
   }
 
@@ -96,13 +96,13 @@ $_cover-margin: 0.75in;    // must match @page { margin } in print-doc.scss
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: -$_cover-margin;
-    margin-left:   -$_cover-margin;
-    margin-right:  -$_cover-margin;
+    margin-bottom: -$_page-margin;
+    margin-left:   -$_page-margin;
+    margin-right:  -$_page-margin;
     padding-top:    0.75rem;
-    padding-left:   calc(#{$_cover-margin} + 0.5rem);
-    padding-right:  calc(#{$_cover-margin} + 0.5rem);
-    padding-bottom: calc(#{$_cover-margin} + 0.5rem);
+    padding-left:   calc(#{$_page-margin} + 0.5rem);
+    padding-right:  calc(#{$_page-margin} + 0.5rem);
+    padding-bottom: calc(#{$_page-margin} + 0.5rem);
   }
 
   &__company-name {

@@ -1,5 +1,9 @@
 // Print document stylesheet — inlined into .pdf.html templates.
 
+// Page geometry — used by @page and cover bleed margins (_cover.scss).
+$_page-height: 11in;
+$_page-margin: 0.75in;
+
 @import "components/letterhead";
 @import "components/doc-footer";
 @import "components/cover";
@@ -7,6 +11,7 @@
 @import "documents/announcement";
 @import "documents/report";
 @import "documents/project-spec";
+@import "documents/product-class";
 @import "imgprint";
 @import "table";
 
@@ -16,7 +21,7 @@
 
 @page {
   size: letter;
-  margin: 0.75in;
+  margin: $_page-margin;
 }
 
 // WeasyPrint / Prince: running-element footers placed in @page margin boxes.
@@ -158,6 +163,22 @@ ul, ol {
 }
 
 li { margin-bottom: 0.1rem; }
+
+// ── Blockquotes ───────────────────────────────────────────────────────
+
+blockquote {
+  margin: 0.5rem 0;
+  margin-left: 0;
+  margin-right: 0;
+  margin-inline-start: 0;  // UA stylesheet uses logical props; physical shorthand doesn't clear them
+  margin-inline-end: 0;
+  padding: 0.25rem 0.75rem;
+  border-left: 3pt solid var(--brand-rule);
+  color: var(--brand-muted);
+  font-style: italic;
+
+  p:last-child { margin-bottom: 0; }
+}
 
 // ── Anchor links — hide in print ─────────────────────────────────────
 

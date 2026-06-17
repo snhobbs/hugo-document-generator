@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <title>{{ .Title }}</title>
   {{ partial "brand/css-vars" . }}
-  {{- $css := resources.Get "scss/print-doc.scss" | css.Sass -}}
-  <style>{{ $css.Content | safeCSS }}</style>
+  {{ partial "print-doc-css" . }}
   {{ partial "scripts/mathjax.html" . }}
 </head>
 <body class="doc-print doc-manual-print">
