@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang | default "en" }}">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ .Title }}</title>
+  {{ partial "brand/css-vars" . }}
+  {{- $css := resources.Get "scss/print-doc.scss" | css.Sass -}}
+  <style>{{ $css.Content | safeCSS }}</style>
+  {{ partial "scripts/mathjax.html" . }}
+</head>
+<body class="doc-print doc-project-spec-print">
+  <table class="doc-page">
+    <tfoot><tr><td>{{ partial "brand/doc-footer" . }}</td></tr></tfoot>
+    <tbody><tr><td>
+      {{ partial "brand/letterhead" . }}
+      <div class="doc-print-title-block">
+        <div class="doc-announcement-banner">Project Specification</div>
+        <h1 class="doc-title">{{ .Title }}</h1>
+        {{- with .Params.subtitle }}<p class="doc-subtitle">{{ . }}</p>{{- end }}
+        <div class="doc-meta">
+          {{- with .Params.project }}<span>{{ . }}</span>{{- end }}
+          {{- with .Params.doc_number }}<span>{{ . }}</span>{{- end }}
+          {{- with .Params.author }}<span>{{ . }}</span>{{- end }}
+          <span>{{ .Date.Format "January 2, 2006" }}</span>
+          {{- with .Params.revision }}<span>Rev {{ . }}</span>{{- end }}
+        </div>
+      </div>
+      <div class="doc-body">
+        {{- .Content -}}
+      </div>
+    </td></tr></tbody>
+  </table>
+</body>
+</html>
