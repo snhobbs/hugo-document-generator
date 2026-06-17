@@ -1,0 +1,33 @@
+// Shared table theme mixin — used by both _web-doc.scss and print-doc.scss.
+// Pass pt-based values from the print stylesheet; defaults are rem for web.
+
+@mixin doc-table-theme(
+  $th-font-size:    0.72rem,
+  $th-padding:      0.4rem 0.7rem,
+  $td-padding:      0.35rem 0.7rem,
+  $td-border-bottom: 1px solid var(--gray-200, #e9ecef)
+) {
+  th {
+    background: var(--brand-primary, #0057b8);
+    color: var(--brand-on-primary);
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: $th-font-size;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: $th-padding;
+    text-align: left;
+    border: none;
+  }
+
+  td {
+    padding: $td-padding;
+    border: none;
+    border-bottom: $td-border-bottom;
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td {
+    background: var(--brand-bg-subtle, var(--gray-100, #f8f9fa));
+  }
+}

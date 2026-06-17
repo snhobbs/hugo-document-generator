@@ -6,6 +6,7 @@
 @import "documents/datasheet";
 @import "documents/announcement";
 @import "documents/report";
+@import "table";
 
 // ── Datasheet two-column (web wide screens only) ─────────────────────
 
@@ -21,7 +22,8 @@
 .doc-datasheet-header,
 .doc-announcement-header,
 .doc-report-header,
-.doc-manual-header {
+.doc-manual-header,
+.doc-project-spec-header {
   margin-bottom: 1.25rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid var(--gray-200, #e9ecef);
@@ -72,7 +74,8 @@
 .doc-datasheet,
 .doc-product-announcement,
 .doc-report,
-.doc-manual {
+.doc-manual,
+.doc-project-spec {
   table {
     font-size: 0.85rem;
     border-collapse: collapse;
@@ -80,29 +83,7 @@
     margin: 1rem 0;
   }
 
-  th {
-    background: var(--brand-primary, #0057b8);
-    color: var(--brand-on-primary);
-    font-family: sans-serif;
-    font-weight: 700;
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.4rem 0.7rem;
-    text-align: left;
-    border: none;
-  }
-
-  td {
-    padding: 0.35rem 0.7rem;
-    border: none;
-    border-bottom: 1px solid var(--gray-200, #e9ecef);
-    vertical-align: top;
-  }
-
-  tr:nth-child(even) td {
-    background: var(--brand-bg-subtle, var(--gray-100, #f8f9fa));
-  }
+  @include doc-table-theme;
 }
 
 // ── Section document index table ─────────────────────────────────────
@@ -119,25 +100,9 @@ table.doc-section-list {
   width: 100%;
   margin: 0;
 
-  th {
-    background: var(--brand-primary, #0057b8);
-    color: var(--brand-on-primary);
-    font-family: sans-serif;
-    font-weight: 700;
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.4rem 0.7rem;
-    text-align: left;
-    border: none;
-  }
+  @include doc-table-theme($td-padding: 0.4rem 0.7rem);
 
   td {
-    padding: 0.4rem 0.7rem;
-    border: none;
-    border-bottom: 1px solid var(--gray-200, #e9ecef);
-    vertical-align: top;
-
     small {
       opacity: 0.65;
       display: block;
@@ -150,10 +115,6 @@ table.doc-section-list {
       border-radius: 2px;
     }
   }
-
-  tr:nth-child(even) td {
-    background: var(--brand-bg-subtle, var(--gray-100, #f8f9fa));
-  }
 }
 
 // ── Section heading brand color (web) ────────────────────────────────
@@ -161,7 +122,8 @@ table.doc-section-list {
 .doc-datasheet,
 .doc-product-announcement,
 .doc-report,
-.doc-manual {
+.doc-manual,
+.doc-project-spec {
   .doc-body h2 {
     color: var(--brand-primary, #0057b8);
     font-family: sans-serif;

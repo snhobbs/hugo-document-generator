@@ -8,6 +8,7 @@
 @import "documents/report";
 @import "documents/project-spec";
 @import "imgprint";
+@import "table";
 
 // ── Reset & page setup ────────────────────────────────────────────────
 
@@ -173,25 +174,12 @@ table {
   page-break-inside: avoid;
 }
 
-th {
-  background: var(--brand-primary);
-  color: var(--brand-on-primary);
-  font-family: sans-serif;
-  font-weight: 700;
-  font-size: 7.5pt;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 3pt 5pt;
-  text-align: left;
-}
-
-td {
-  padding: 2.5pt 5pt;
-  border-bottom: 0.5pt solid var(--brand-rule);
-  vertical-align: top;
-}
-
-tr:nth-child(even) td { background: var(--brand-bg-subtle); }
+@include doc-table-theme(
+  $th-font-size:    7.5pt,
+  $th-padding:      4pt 7pt,
+  $td-padding:      3.5pt 7pt,
+  $td-border-bottom: 0.5pt solid var(--brand-rule)
+);
 
 // ── MathML ───────────────────────────────────────────────────────────
 
