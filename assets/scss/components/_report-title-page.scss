@@ -1,0 +1,49 @@
+// Report title page — plain white page, green accent rule under the
+// letterhead, no full-bleed band (contrast with components/_cover.scss,
+// which is dark and full-bleed) and no fixed/flex height (contrast with
+// _cover.scss's exact-page-height box, which doesn't paginate reliably).
+//
+// Print-only: this partial must not be imported by _web-doc.scss.
+
+.doc-report-title-page {
+  page-break-after: always;
+  break-after: page;
+  margin-top: 2rem;
+
+  &__type {
+    font-family: sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--brand-primary);
+    border-left: 3pt solid var(--brand-primary);
+    padding-left: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  &__title {
+    font-family: sans-serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--brand-text);
+    margin: 0 0 0.75rem;
+  }
+
+  &__subtitle {
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--brand-muted);
+    margin: 0 0 1.5rem;
+  }
+
+  &__meta {
+    font-family: sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    color: var(--brand-muted);
+    border-top: 1.5pt solid var(--brand-primary);
+    padding-top: 0.75rem;
+  }
+}

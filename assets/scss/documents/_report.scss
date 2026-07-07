@@ -1,4 +1,8 @@
-// Report — multi-page with cover page and running headers.
+// Report — multi-page with a title page and running headers.
+//
+// NB: this partial is imported by both print-doc.scss and _web-doc.scss, so
+// it must not reference print-only page-geometry vars ($_page-height etc).
+// The print-only title page styles live in components/_report-title-page.scss.
 
 .doc-report,
 .doc-report-print {
