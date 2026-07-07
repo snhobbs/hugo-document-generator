@@ -230,3 +230,47 @@ annotation { display: none; }
     margin-top: 0.75rem;
   }
 }
+
+// ── Two-column product announcement (print only) ──────────────────────
+
+.doc-announcement-print .doc-body {
+  column-count: 2;
+  column-gap: 1.5rem;
+
+  h2 {
+    column-span: all;
+    color: var(--brand-primary);
+    font-size: 11pt;
+    margin-top: 0.75rem;
+  }
+
+  table {
+    break-inside: avoid;
+  }
+}
+
+// ── Compact banner + title (print only) ────────────────────────────────
+// Announcements have no cover page, so the banner/title block is the
+// first thing on the page — keep it small to leave more room for content.
+
+.doc-announcement-print {
+  .doc-announcement-banner {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.5rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .doc-print-title-block {
+    padding-bottom: 0.35rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .doc-title {
+    font-size: 16pt;
+    margin-bottom: 0.1rem;
+  }
+
+  .doc-subtitle {
+    margin-bottom: 0.2rem;
+  }
+}
