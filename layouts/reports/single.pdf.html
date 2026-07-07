@@ -11,7 +11,11 @@
   <table class="doc-page">
     <tfoot><tr><td>{{ partial "brand/doc-footer" . }}</td></tr></tfoot>
     <tbody><tr><td>
-      {{ partial "brand/report-title-page" . }}
+      {{- $meta := slice }}
+      {{- with .Params.author }}{{ $meta = $meta | append . }}{{ end }}
+      {{- $meta = $meta | append (.Date.Format "January 2, 2006") }}
+      {{- with .Params.revision }}{{ $meta = $meta | append (printf "Revision %s" .) }}{{ end }}
+      {{ partial "brand/title-page" (dict "page" . "type" "Report" "subtitle" .Params.subtitle "meta" $meta) }}
       <div class="doc-body">
         {{- .Content -}}
       </div>

@@ -11,16 +11,11 @@
   <table class="doc-page">
     <tfoot><tr><td>{{ partial "brand/doc-footer" . }}</td></tr></tfoot>
     <tbody><tr><td>
-      {{ partial "brand/letterhead" . }}
-      <div class="doc-print-title-block">
-        <h1 class="doc-title">{{ .Title }}</h1>
-        {{- with .Params.description }}<p class="doc-subtitle">{{ . }}</p>{{- end }}
-        <div class="doc-meta">
-          {{- with .Params.part_number }}<span>P/N: {{ . }}</span>{{- end }}
-          {{- with .Params.revision }}<span>Rev {{ . }}</span>{{- end }}
-          <span>{{ .Date.Format "January 2006" }}</span>
-        </div>
-      </div>
+      {{- $meta := slice }}
+      {{- with .Params.part_number }}{{ $meta = $meta | append (printf "P/N: %s" .) }}{{ end }}
+      {{- with .Params.revision }}{{ $meta = $meta | append (printf "Rev %s" .) }}{{ end }}
+      {{- $meta = $meta | append (.Date.Format "January 2006") }}
+      {{ partial "brand/title-page" (dict "page" . "type" "Datasheet" "subtitle" .Params.description "meta" $meta) }}
       <div class="doc-body">
         {{- .Content -}}
       </div>

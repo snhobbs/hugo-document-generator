@@ -1,0 +1,22 @@
+{{- /*
+  Shared print title page — plain white page, brand-primary accent rule,
+  page-break-after so the body always starts on its own page. Originally
+  report-only; now shared by reports, application notes, technical notes,
+  and datasheets so all four print with the same title-page treatment.
+
+  Params (dict):
+    page     - the page context (e.g. ".")
+    type     - label shown above the title, e.g. "Report", "Datasheet"
+    subtitle - optional subtitle string
+    meta     - optional slice of strings, one per meta line
+*/ -}}
+{{- $page := .page -}}
+{{ partial "brand/letterhead" $page }}
+<div class="doc-report-title-page">
+  <div class="doc-report-title-page__type">{{ .type }}</div>
+  <h1 class="doc-report-title-page__title">{{ $page.Title }}</h1>
+  {{- with .subtitle }}<p class="doc-report-title-page__subtitle">{{ . }}</p>{{- end }}
+  <div class="doc-report-title-page__meta">
+    {{- range .meta }}<div>{{ . }}</div>{{- end }}
+  </div>
+</div>

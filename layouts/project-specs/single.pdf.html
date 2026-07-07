@@ -11,19 +11,13 @@
   <table class="doc-page">
     <tfoot><tr><td>{{ partial "brand/doc-footer" . }}</td></tr></tfoot>
     <tbody><tr><td>
-      {{ partial "brand/letterhead" . }}
-      <div class="doc-print-title-block">
-        <div class="doc-announcement-banner">Project Specification</div>
-        <h1 class="doc-title">{{ .Title }}</h1>
-        {{- with .Params.subtitle }}<p class="doc-subtitle">{{ . }}</p>{{- end }}
-        <div class="doc-meta">
-          {{- with .Params.project }}<span>{{ . }}</span>{{- end }}
-          {{- with .Params.doc_number }}<span>{{ . }}</span>{{- end }}
-          {{- with .Params.author }}<span>{{ . }}</span>{{- end }}
-          <span>{{ .Date.Format "January 2, 2006" }}</span>
-          {{- with .Params.revision }}<span>Rev {{ . }}</span>{{- end }}
-        </div>
-      </div>
+      {{- $meta := slice }}
+      {{- with .Params.project }}{{ $meta = $meta | append . }}{{ end }}
+      {{- with .Params.doc_number }}{{ $meta = $meta | append . }}{{ end }}
+      {{- with .Params.author }}{{ $meta = $meta | append . }}{{ end }}
+      {{- $meta = $meta | append (.Date.Format "January 2, 2006") }}
+      {{- with .Params.revision }}{{ $meta = $meta | append (printf "Rev %s" .) }}{{ end }}
+      {{ partial "brand/title-page" (dict "page" . "type" "Project Specification" "subtitle" .Params.subtitle "meta" $meta) }}
       <div class="doc-body">
         {{- .Content -}}
       </div>

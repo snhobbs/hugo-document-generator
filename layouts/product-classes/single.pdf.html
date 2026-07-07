@@ -19,14 +19,9 @@
   <table class="doc-page">
     <tfoot><tr><td>{{ partial "brand/doc-footer" . }}</td></tr></tfoot>
     <tbody><tr><td>
-      {{ partial "brand/letterhead" . }}
-      <div class="doc-print-title-block">
-        <h1 class="doc-title">{{ .Title }}</h1>
-        {{- with .Params.description }}<p class="doc-subtitle">{{ . }}</p>{{- end }}
-        <div class="doc-meta">
-          <span>{{ .Date.Format "January 2006" }}</span>
-        </div>
-      </div>
+      {{- $meta := slice }}
+      {{- $meta = $meta | append (.Date.Format "January 2006") }}
+      {{ partial "brand/title-page" (dict "page" . "type" "Product Class" "subtitle" .Params.description "meta" $meta) }}
 
       {{- with .Content }}
       <div class="doc-body">{{ . }}</div>
