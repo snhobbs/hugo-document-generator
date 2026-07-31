@@ -12,7 +12,10 @@ $_page-margin: 0.75in;
 @import "documents/announcement";
 @import "documents/report";
 @import "documents/project-spec";
+@import "documents/proposal";
+@import "documents/quad-chart";
 @import "documents/product-class";
+@import "documents/technology-area";
 @import "imgprint";
 @import "table";
 
@@ -272,5 +275,72 @@ annotation { display: none; }
 
   .doc-subtitle {
     margin-bottom: 0.2rem;
+  }
+}
+
+// ── Quad chart (print only) — fit the whole thing on one page ─────────
+
+.doc-quad-chart-print {
+  .doc-announcement-banner {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.5rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .doc-print-title-block {
+    padding-bottom: 0.35rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .doc-title {
+    font-size: 16pt;
+    margin-bottom: 0.1rem;
+  }
+
+  .doc-subtitle {
+    margin-bottom: 0.2rem;
+  }
+
+  .doc-quad-grid {
+    gap: 0.5rem;
+  }
+
+  .doc-quad-cell {
+    padding: 0.5rem 0.65rem;
+    font-size: 9pt;
+
+    h2 {
+      font-size: 9pt;
+      margin-bottom: 0.3rem;
+    }
+  }
+
+  .doc-quad-cell__image {
+    margin-bottom: 0.3rem;
+
+    img.doc-figure__img {
+      max-height: 1.1in;
+    }
+  }
+
+  .doc-quad-figures {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+
+    .doc-figure {
+      flex: 1 1 0;
+      width: auto;
+      margin: 0;
+    }
+
+    .doc-figure__img {
+      max-height: 1.6in;
+      object-fit: cover;
+    }
+
+    figcaption.doc-figure__caption {
+      font-size: 6.5pt;
+    }
   }
 }

@@ -1,0 +1,65 @@
+// Quad chart — one-page 2x2 pitch summary. Deliberately not part of the
+// shared multi-page letterhead selector lists in _web-doc.scss / print-doc.scss
+// header+table blocks; this doc type is its own compact, self-contained format.
+
+.doc-quad-chart-header {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--gray-200, #e9ecef);
+}
+
+.doc-quad-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1rem;
+}
+
+.doc-quad-cell {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--brand-rule, #d0d5da);
+  border-radius: 4px;
+  padding: 0.85rem 1rem;
+  overflow: hidden;
+
+  h2 {
+    margin: 0 0 0.5rem;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--brand-primary, #0057b8);
+    font-family: sans-serif;
+  }
+
+  p:last-child,
+  ol:last-child,
+  ul:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.doc-quad-cell__image {
+  margin-bottom: 0.6rem;
+  flex-shrink: 0;
+
+  img.doc-figure__img {
+    width: 100%;
+    max-height: 9rem;
+    object-fit: cover;
+    border-radius: 3px;
+    display: block;
+  }
+}
+
+.doc-quad-figures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.25rem;
+
+  .doc-figure {
+    flex: 1 1 240px;
+    margin: 0;
+  }
+}

@@ -6,6 +6,7 @@
 @import "documents/datasheet";
 @import "documents/announcement";
 @import "documents/report";
+@import "documents/quad-chart";
 @import "table";
 
 // ── Datasheet two-column (web wide screens only) ─────────────────────
@@ -23,7 +24,9 @@
 .doc-announcement-header,
 .doc-report-header,
 .doc-manual-header,
-.doc-project-spec-header {
+.doc-project-spec-header,
+.doc-proposal-header,
+.doc-technology-area-header {
   margin-bottom: 1.25rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid var(--gray-200, #e9ecef);
@@ -75,7 +78,9 @@
 .doc-product-announcement,
 .doc-report,
 .doc-manual,
-.doc-project-spec {
+.doc-project-spec,
+.doc-proposal,
+.doc-technology-area {
   table {
     font-size: 0.85rem;
     border-collapse: collapse;
@@ -123,7 +128,9 @@ table.doc-section-list {
 .doc-product-announcement,
 .doc-report,
 .doc-manual,
-.doc-project-spec {
+.doc-project-spec,
+.doc-proposal,
+.doc-technology-area {
   .doc-body h2 {
     color: var(--brand-primary, #0057b8);
     font-family: sans-serif;

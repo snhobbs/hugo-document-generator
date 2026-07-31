@@ -1,0 +1,42 @@
+{{/* quad-cell.html — one quadrant of a quad chart, with an optional image.
+
+     Params (dict):
+       page  – the Page (for resource resolution)
+       label – heading text, e.g. "Opportunity"
+       text  – markdown body string (e.g. .Params.quad_opportunity)
+       image – optional filename, resolved from the page bundle first,
+               then global assets/ (same lookup as the imgprint shortcode)
+       alt   – optional alt text for the image (defaults to label)
+*/}}
+{{ $page  := .page -}}
+{{ $label := .label -}}
+{{ $text  := .text -}}
+{{ $image := .image -}}
+{{ $alt   := .alt | default $label -}}
+
+<div class="doc-quad-cell">
+  <h2>{{ $label }}</h2>
+  {{ with $image -}}
+    {{ $original := $page.Resources.GetMatch (printf "**%s*" .) -}}
+    {{ if not $original -}}
+      {{ $original = resources.GetMatch . -}}
+    {{ end -}}
+    {{ if not $original -}}
+      {{ errorf "quad-cell: image not found: %q (checked page bundle and global assets/)" . -}}
+    {{ end -}}
+    {{ $isSvg := eq $original.MediaType.SubType "svg" -}}
+    {{ $screen := cond $isSvg $original ($original.Fit "600x340 webp q85") -}}
+    {{ $print  := cond $isSvg $original ($original.Fit "600x340 jpg q95") -}}
+    <div class="doc-quad-cell__image">
+      <img class="doc-figure__img doc-figure__img--screen"
+           src="{{ $screen.RelPermalink }}"
+           {{ if not $isSvg }}width="{{ $screen.Width }}" height="{{ $screen.Height }}"{{ end }}
+           loading="lazy" decoding="async" alt="{{ $alt }}">
+      <img class="doc-figure__img doc-figure__img--print"
+           src="{{ $print.RelPermalink }}"
+           {{ if not $isSvg }}width="{{ $print.Width }}" height="{{ $print.Height }}"{{ end }}
+           alt="{{ $alt }}">
+    </div>
+  {{ end -}}
+  {{ $text | markdownify }}
+</div>

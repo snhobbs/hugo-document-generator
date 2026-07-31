@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang | default "en" }}">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ .Title }}</title>
+  {{ partial "brand/css-vars" . }}
+  {{ partial "print-doc-css" . }}
+  {{ partial "scripts/mathjax.html" . }}
+</head>
+<body class="doc-print doc-quad-chart-print">
+  <table class="doc-page">
+    <tfoot><tr><td>{{ partial "brand/doc-footer" . }}</td></tr></tfoot>
+    <tbody><tr><td>
+      {{ partial "brand/letterhead" . }}
+      <div class="doc-print-title-block">
+        <div class="doc-announcement-banner">Quad Chart</div>
+        <h1 class="doc-title">{{ .Title }}</h1>
+        {{- with .Params.subtitle }}<p class="doc-subtitle">{{ . }}</p>{{- end }}
+        {{- if (or .Params.client .Params.contact) }}
+        <div class="doc-meta">
+          {{- with .Params.client }}<span>{{ . }}</span>{{- end }}
+          {{- with .Params.contact }}<span>{{ . }}</span>{{- end }}
+        </div>
+        {{- end }}
+      </div>
+      <div class="doc-quad-grid">
+        {{ partial "quad-cell" (dict "page" . "label" "Opportunity" "text" .Params.quad_opportunity "image" .Params.quad_opportunity_image) }}
+        {{ partial "quad-cell" (dict "page" . "label" "Approach" "text" .Params.quad_approach "image" .Params.quad_approach_image) }}
+        {{ partial "quad-cell" (dict "page" . "label" "Schedule" "text" .Params.quad_schedule "image" .Params.quad_schedule_image) }}
+        {{ partial "quad-cell" (dict "page" . "label" "Next Steps" "text" .Params.quad_next_steps "image" .Params.quad_next_steps_image) }}
+      </div>
+      {{ if .Content }}
+      <div class="doc-quad-figures">
+        {{ .Content }}
+      </div>
+      {{ end }}
+    </td></tr></tbody>
+  </table>
+</body>
+</html>

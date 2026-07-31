@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang | default "en" }}">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ .Title }}</title>
+  {{ partial "brand/css-vars" . }}
+  {{ partial "print-doc-css" . }}
+  {{ partial "scripts/mathjax.html" . }}
+</head>
+<body class="doc-print doc-proposal-print">
+  <table class="doc-page">
+    <tfoot><tr><td>{{ partial "brand/doc-footer" . }}</td></tr></tfoot>
+    <tbody><tr><td>
+      {{- $meta := slice }}
+      {{- with .Params.client }}{{ $meta = $meta | append . }}{{ end }}
+      {{- with .Params.proposal_number }}{{ $meta = $meta | append . }}{{ end }}
+      {{- with .Params.author }}{{ $meta = $meta | append . }}{{ end }}
+      {{- $meta = $meta | append (.Date.Format "January 2, 2006") }}
+      {{- with .Params.revision }}{{ $meta = $meta | append (printf "Rev %s" .) }}{{ end }}
+      {{ partial "brand/title-page" (dict "page" . "type" "Proposal" "subtitle" .Params.subtitle "meta" $meta) }}
+      <div class="doc-body">
+        {{- .Content -}}
+      </div>
+    </td></tr></tbody>
+  </table>
+</body>
+</html>
