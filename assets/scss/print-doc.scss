@@ -252,7 +252,20 @@ annotation { display: none; }
     margin-top: 0.75rem;
   }
 
+  // A table taller than one column can't be kept whole, so let it flow across
+  // the column/page break instead — just keep individual rows from splitting.
   table {
+    break-inside: auto;
+  }
+
+  tr {
+    break-inside: avoid;
+  }
+
+  // Opt-in for short tables: append {.doc-table--keep-together} after a
+  // table in Markdown to force it to move to the next column/page as a
+  // whole, rather than allowing an awkward one-row split.
+  table.doc-table--keep-together {
     break-inside: avoid;
   }
 }
