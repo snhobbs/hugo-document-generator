@@ -188,6 +188,11 @@ blockquote {
 
 a.anchor { display: none; }
 
+// ── De-linked local references — rendered by _markup/render-link.pdf.html
+// as plain text (the target page's title) instead of a dead hyperlink.
+
+.doc-print-local-ref { font-style: italic; }
+
 // ── Tables ───────────────────────────────────────────────────────────
 
 table {

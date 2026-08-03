@@ -1,0 +1,20 @@
+{{/* PDF-only link render hook. A link to another local page is dead weight in
+     a static PDF, so we drop the hyperlink and show the target page's title
+     as plain text instead. External URLs, mailto/tel, and same-page anchor
+     links still render as normal clickable <a> tags. */}}
+{{- $dest := .Destination -}}
+{{- $isExternal := or (strings.HasPrefix $dest "http://") (strings.HasPrefix $dest "https://") (strings.HasPrefix $dest "mailto:") (strings.HasPrefix $dest "tel:") -}}
+{{- $isFragment := strings.HasPrefix $dest "#" -}}
+{{- if or $isExternal $isFragment -}}
+  <a href="{{ $dest | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text | safeHTML }}</a>
+{{- else -}}
+  {{- $path := $dest -}}
+  {{- if strings.Contains $dest "#" -}}
+    {{- $path = index (split $dest "#") 0 -}}
+  {{- end -}}
+  {{- $label := .Text -}}
+  {{- with .Page.GetPage $path -}}
+    {{- $label = .Title -}}
+  {{- end -}}
+  <span class="doc-print-local-ref">{{ $label }}</span>
+{{- end -}}
