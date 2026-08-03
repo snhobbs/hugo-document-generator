@@ -2,8 +2,8 @@
 
      Params (dict):
        page  – the Page (for resource resolution)
-       label – heading text, e.g. "Opportunity"
-       text  – markdown body string (e.g. .Params.quad_opportunity)
+       label – optional heading text, e.g. "Opportunity" (omit for no heading)
+       text  – markdown body string (e.g. .Params.quad_tl)
        image – optional filename, resolved from the page bundle first,
                then global assets/ (same lookup as the imgprint shortcode)
        alt   – optional alt text for the image (defaults to label)
@@ -15,7 +15,7 @@
 {{ $alt   := .alt | default $label -}}
 
 <div class="doc-quad-cell">
-  <h2>{{ $label }}</h2>
+  {{ with $label }}<h2>{{ . }}</h2>{{ end }}
   {{ with $image -}}
     {{ $original := $page.Resources.GetMatch (printf "**%s*" .) -}}
     {{ if not $original -}}

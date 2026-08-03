@@ -26,10 +26,15 @@
     break-inside: avoid;
   }
 
-  // Opt-in for short tables: append {.doc-table--keep-together} after a
-  // table in Markdown to force it to move to the next column/page as a
-  // whole, rather than allowing an awkward one-row split.
-  table.doc-table--keep-together {
+  // Opt-in for short tables: force a table to move to the next column/page
+  // as a whole, rather than allowing an awkward one-row split. Either append
+  // {.doc-table--keep-together} on the line right after the table in
+  // Markdown, or — if a formatter (e.g. Prettier on save) reflows that line
+  // away from the table — wrap the table in a raw HTML
+  // <div class="doc-table--keep-together"> block instead (blank lines
+  // required on both sides so CommonMark still parses the table markup).
+  table.doc-table--keep-together,
+  .doc-table--keep-together table {
     break-inside: avoid;
   }
 }

@@ -1,0 +1,10 @@
+{{/* Compact letterhead — single line of company name, phone, and website.
+     No logo, address, or email. Used by document types (e.g. quad chart)
+     where the full brand/letterhead header takes up too much space. */}}
+{{- $b := hugo.Data.brand -}}
+
+<header class="doc-letterhead doc-letterhead--compact">
+  <span class="doc-letterhead__company">{{ $b.company.name }}</span>
+  {{- with $b.company.phone }}<span class="doc-letterhead__line">{{ . }}</span>{{- end }}
+  {{- with $b.company.website }}<span class="doc-letterhead__line">{{ . }}</span>{{- end }}
+</header>

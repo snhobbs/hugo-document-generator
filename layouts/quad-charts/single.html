@@ -13,10 +13,10 @@
   </div>
   {{ partial "print-link" . }}
   <div class="doc-quad-grid">
-    {{ partial "quad-cell" (dict "page" . "label" "Opportunity" "text" .Params.quad_opportunity "image" .Params.quad_opportunity_image) }}
-    {{ partial "quad-cell" (dict "page" . "label" "Approach" "text" .Params.quad_approach "image" .Params.quad_approach_image) }}
-    {{ partial "quad-cell" (dict "page" . "label" "Schedule" "text" .Params.quad_schedule "image" .Params.quad_schedule_image) }}
-    {{ partial "quad-cell" (dict "page" . "label" "Next Steps" "text" .Params.quad_next_steps "image" .Params.quad_next_steps_image) }}
+    {{ partial "quad-cell" (dict "page" . "label" .Params.quad_tl_title "text" .Params.quad_tl "image" .Params.quad_tl_image) }}
+    {{ partial "quad-cell" (dict "page" . "label" .Params.quad_tr_title "text" .Params.quad_tr "image" .Params.quad_tr_image) }}
+    {{ partial "quad-cell" (dict "page" . "label" .Params.quad_bl_title "text" .Params.quad_bl "image" .Params.quad_bl_image) }}
+    {{ partial "quad-cell" (dict "page" . "label" .Params.quad_br_title "text" .Params.quad_br "image" .Params.quad_br_image) }}
   </div>
   {{ if .Content }}
   <div class="doc-quad-figures">

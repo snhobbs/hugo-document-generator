@@ -69,3 +69,30 @@
   margin: 0 0 1.25rem;
 }
 
+// Compact variant — one line: company name, phone, website. No logo/grid.
+.doc-letterhead--compact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0;
+  padding-bottom: 0.35rem;
+  margin-bottom: 0.75rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 8pt;
+  color: var(--brand-text);
+
+  .doc-letterhead__company {
+    display: inline;
+    margin-bottom: 0;
+  }
+
+  .doc-letterhead__line {
+    display: inline;
+  }
+
+  span + span::before {
+    content: '\00B7';
+    margin: 0 0.4rem;
+  }
+}
+

@@ -47,7 +47,11 @@ def html_to_pdf(input_url: str, output: str) -> None:
             browser = p.chromium.launch()
             page = browser.new_page()
             page.goto(url, wait_until="networkidle")
-            page.pdf(path=output, print_background=True)
+            # Without this, Chromium ignores CSS @page size (letter, landscape,
+            # etc.) and always renders portrait Letter regardless of what the
+            # stylesheet declares -- needed for e.g. the quad chart's landscape
+            # @page rule in print-doc.scss.
+            page.pdf(path=output, print_background=True, prefer_css_page_size=True)
             browser.close()
     finally:
         if httpd:
