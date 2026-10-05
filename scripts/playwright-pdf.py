@@ -47,6 +47,13 @@ def html_to_pdf(input_url: str, output: str) -> None:
             browser = p.chromium.launch()
             page = browser.new_page()
             page.goto(url, wait_until="networkidle")
+            # Mermaid draws its diagrams asynchronously after the page loads,
+            # so wait until every diagram has an SVG before printing.
+            page.wait_for_function(
+                "Array.from(document.querySelectorAll('pre.mermaid'))"
+                ".every(el => el.querySelector('svg'))",
+                timeout=30000,
+            )
             # Without this, Chromium ignores CSS @page size (letter, landscape,
             # etc.) and always renders portrait Letter regardless of what the
             # stylesheet declares -- needed for e.g. the quad chart's landscape
